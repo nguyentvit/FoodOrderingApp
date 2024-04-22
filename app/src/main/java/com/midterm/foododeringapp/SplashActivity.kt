@@ -1,6 +1,9 @@
 package com.midterm.foododeringapp
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +24,12 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         },3000)
+
+        binding?.tvNameApp?.setGradientTextColor(
+            Color.parseColor("#FEAD1D"),
+            Color.parseColor("#FF9012")
+        )
+
 
     }
 }
