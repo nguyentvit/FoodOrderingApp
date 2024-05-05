@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:paddingBottom="10dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageFood"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="@dimen/authentication_screen_til_marginTopBottom"
+                android:layout_marginBottom="@dimen/authentication_screen_til_marginTopBottom"
+                android:background="@drawable/rounded_image_background"
+                android:src="@drawable/food1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNameFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                android:fontFamily="@font/pacifico_regular"
+                android:text="Chocolate Pancakes"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvNameRest"
+                app:layout_constraintStart_toEndOf="@+id/imageFood"
+                app:layout_constraintTop_toTopOf="@+id/imageFood" />
+
+            <TextView
+                android:id="@+id/tvNameRest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/langar_regular"
+                android:text="Tiem Nha Na"
+                android:textColor="@color/text_hint_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imageFood"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameFood" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pacifico_regular"
+                android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                android:text="$7"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageFood"
+                app:layout_constraintStart_toEndOf="@+id/imageFood"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRest" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/plus"
+                android:background="@drawable/rounded_image_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/minus_background_button"
+                android:src="@drawable/minus"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCount"
+                app:layout_constraintEnd_toStartOf="@+id/tvCount"
+                app:layout_constraintTop_toTopOf="@+id/tvCount" />
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+                app:layout_constraintTop_toTopOf="@+id/btnPlus" />
+
+            <ImageView
+                android:id="@+id/imgErase"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnPlus"
+                app:layout_constraintStart_toStartOf="@+id/btnMinus"
+                app:layout_constraintTop_toBottomOf="@+id/tvCount"
+                app:srcCompat="@drawable/trash" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
