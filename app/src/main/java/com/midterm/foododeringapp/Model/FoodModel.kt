@@ -1,33 +1,45 @@
 package com.midterm.foododeringapp.Model
 
-class FoodModel(
-    private var nameFood: String,
-    private var price: String,
-    private var image: Int,
-    private var nameRest: String
-) {
-    fun getNameFood(): String{
-        return nameFood
+import android.os.Parcel
+import android.os.Parcelable
+
+data class FoodModel(
+    var foodName: String? = null,
+    var foodPrice: String? = null,
+    var foodImage: String? = null,
+//    var nameRest: String? = null,
+    var foodDescription: String? = null,
+    var foodIngredient: String? = null
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+    //    parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(foodName)
+        parcel.writeString(foodPrice)
+        parcel.writeString(foodImage)
+  //      parcel.writeString(nameRest)
+        parcel.writeString(foodDescription)
+        parcel.writeString(foodIngredient)
     }
-    fun setNameFood(nameFood: String){
-        this.nameFood = nameFood
+
+    override fun describeContents(): Int {
+        return 0
     }
-    fun getPrice():String{
-        return price
-    }
-    fun setPrice(price: String){
-        this.price = price
-    }
-    fun getImage(): Int{
-        return image
-    }
-    fun setImage(image: Int){
-        this.image = image
-    }
-    fun getNameRest(): String{
-        return nameRest
-    }
-    fun setNameRest(nameRest: String){
-        this.nameRest = nameRest
+
+    companion object CREATOR : Parcelable.Creator<FoodModel> {
+        override fun createFromParcel(parcel: Parcel): FoodModel {
+            return FoodModel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<FoodModel?> {
+            return arrayOfNulls(size)
+        }
     }
 }
