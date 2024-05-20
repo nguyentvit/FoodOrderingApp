@@ -3,37 +3,33 @@ package com.midterm.foododeringapp.Adapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.midterm.foododeringapp.DetailsActivity
+import com.midterm.foododeringapp.Model.CartItem
 import com.midterm.foododeringapp.Model.FoodModel
 import com.midterm.foododeringapp.databinding.MenuItemBinding
 import com.midterm.foododeringapp.setGradientTextColor
 
 class MenuAdapter(private val items: ArrayList<FoodModel>,
-                    private var requiredContext: Context
+                    private var requiredContext: Context,
 ) :RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
-    private val itemClickListener: OnClickListener ?= null
-
     inner class MenuViewHolder(private val binding: MenuItemBinding) :RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION){
-                    itemClickListener.onItemClick(position)
-
-                }
-
-            }
-        }
         val tvNameFood = binding.tvNameFood
         val tvNameRest = binding.tvNameRest
         val tvPrice = binding.tvPrice
         val image = binding.imgFood
+        val btnAddToCart = binding.ivAddToCart
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         return MenuViewHolder(MenuItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
@@ -44,33 +40,48 @@ class MenuAdapter(private val items: ArrayList<FoodModel>,
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        val model: FoodModel = items[position]
-        holder.tvNameFood.text = model.getNameFood()
+        val model = items[position]
+        holder.tvNameFood.text = model.foodName
         holder.tvPrice.setGradientTextColor(
             Color.parseColor("#E85353"),
             Color.parseColor("#BE1515")
         )
 
-        holder.tvPrice.text = model.getPrice()
-        holder.tvNameRest.text = model.getNameRest()
-        holder.image.setImageResource(model.getImage())
+        holder.tvPrice.text = model.foodPrice
+//        holder.tvNameRest.text = model.nameRest
+        val uri = Uri.parse(model.foodImage)
+        Glide.with(requiredContext).load(uri).into(holder.image)
         holder.tvNameFood.setOnClickListener{
-            val intent = Intent(requiredContext, DetailsActivity::class.java)
-            intent.putExtra("ItemName", items[position].getNameFood())
-            intent.putExtra("ItemImage", items[position].getImage())
-            requiredContext.startActivity(intent)
+            openDetailsActivity(model)
         }
         holder.image.setOnClickListener {
-            val intent = Intent(requiredContext, DetailsActivity::class.java)
-            intent.putExtra("ItemName", items[position].getNameFood())
-            intent.putExtra("ItemImage", items[position].getImage())
-            requiredContext.startActivity(intent)
+            openDetailsActivity(model)
+        }
+        holder.btnAddToCart.setOnClickListener {
+            addItemToCart(model)
         }
 
 
     }
+
+    private fun addItemToCart(model: FoodModel) {
+        val database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        var userId = auth.currentUser?.uid?:""
+        //Create a cartItems object
+        val cartItem = CartItem(model.foodName,model.foodPrice,model.foodImage,model.foodDescription,1, model.foodIngredient)
+        //Save data to cart item to database
+        database.child("user").child(userId).child("CartItems").push().setValue(cartItem).addOnSuccessListener {
+            Toast.makeText(requiredContext,"Add item to cart successfully!", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(requiredContext,"Item not added", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun openDetailsActivity(model: FoodModel){
+        val intent = Intent(requiredContext, DetailsActivity::class.java)
+        intent.putExtra("food",model)
+        requiredContext.startActivity(intent)
+    }
 }
 
-private fun OnClickListener?.onItemClick(position: Int) {
-
-}
