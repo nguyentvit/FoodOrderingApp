@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context=".Fragment.HistoryFragment">
-    
+
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/tvUser"
         android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvUser" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+        android:id="@+id/recentBuyItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/authentication_screen_til_marginTopBottom"
@@ -113,7 +114,7 @@
         android:layout_marginTop="@dimen/authentication_screen_til_marginTopBottom"
         android:text="Previously buy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+        app:layout_constraintTop_toBottomOf="@+id/recentBuyItem" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistoryFoodBought"
