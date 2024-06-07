@@ -27,7 +27,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="@dimen/authentication_screen_til_marginTopBottom"
                 android:layout_marginBottom="@dimen/authentication_screen_til_marginTopBottom"
-                android:background="@drawable/rounded_image_background"
+                android:background="@drawable/white_shape_button_rounded"
                 android:src="@drawable/food1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
