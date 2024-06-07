@@ -10,4 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client_id">208488999913-rvhqvo47ht7euqko0t7rk09efg9g94hb.apps.googleusercontent.com</string>
     <string name="total_format">%.2f$</string>
+    <string name="_7">$7</string>
+    <string name="tiem_nha_na">Tiem Nha Na</string>
+    <string name="chocolate_pancakes">Chocolate Pancakes</string>
+    <string name="hello_anna">Hello Anna</string>
 </resources>

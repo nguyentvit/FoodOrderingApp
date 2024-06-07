@@ -1,5 +1,6 @@
 package com.midterm.foododeringapp.Fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.midterm.foododeringapp.Adapter.CartAdapter
 import com.midterm.foododeringapp.Model.FoodModel
 import com.midterm.foododeringapp.Model.OrderDetails
 import com.midterm.foododeringapp.R
+import com.midterm.foododeringapp.RecentOrderItems
 import com.midterm.foododeringapp.databinding.FragmentHistoryBinding
 import com.midterm.foododeringapp.setGradientTextColor
 
@@ -52,20 +54,32 @@ class HistoryFragment : Fragment() {
             Color.parseColor("#BE1515")
         )
         retrieveBuyHistory()
-// recent buy button click
-//        binding?.recentBuyItem?.setOnClickListener {
-//            seeItemsRecentBuy()
-//        }
+        // recent buy button click
+        binding?.recentBuyItem?.setOnClickListener {
+            seeItemsRecentBuy()
+        }
+        binding?.btnReceived?.setOnClickListener {
+            updateOrderStatus()
+        }
 
 
         return binding?.root
     }
 
-//    private fun seeItemsRecentBuy() {
-//        listOfOrderItem.firstOrNull()?.let {
-//            val intent = Intent(requireContext())
-//        }
-//    }
+    private fun updateOrderStatus() {
+        val itemPushKey = listOfOrderItem[0].itemPushKey
+        val completeOrderReference = database.reference.child("CompleteOrder").child(itemPushKey!!)
+        completeOrderReference.child("paymentReceived").setValue(true)
+    }
+
+    private fun seeItemsRecentBuy() {
+        listOfOrderItem.firstOrNull()?.let {
+            val intent = Intent(requireContext(), RecentOrderItems::class.java)
+            val recentBuyItem = listOfOrderItem.first()
+            intent.putExtra("RecentBuyOrderItem", recentBuyItem)
+            startActivity(intent)
+        }
+    }
 
     private fun retrieveBuyHistory() {
         binding?.recentBuyItem?.visibility = View.INVISIBLE
@@ -81,7 +95,6 @@ class HistoryFragment : Fragment() {
                         listOfOrderItem.add(it)
                     }
                 }
-                listOfOrderItem.reverse()
                 if(listOfOrderItem.isNotEmpty()){
                     setDataInRecentBuyItem()
                     setPreviousBuyItemRecyclerView()
@@ -99,9 +112,8 @@ class HistoryFragment : Fragment() {
 
     private fun setDataInRecentBuyItem() {
         binding?.recentBuyItem?.visibility = View.VISIBLE
-        val recentOrderItem = listOfOrderItem.first()
+        val recentOrderItem = listOfOrderItem.last()
         recentOrderItem?.let {
-            Log.d("hi","hi1")
             with(binding){
                 this?.tvNameFood?.text = it.foodNames?.firstOrNull()?:""
                 this?.tvPrice?.text= it.foodPrices?.firstOrNull()?:""
@@ -111,13 +123,18 @@ class HistoryFragment : Fragment() {
 
                 listOfOrderItem.reverse()
 
+                val isOrderIsAccepted = listOfOrderItem[0].orderAccepted
+                if(isOrderIsAccepted){
+                    this?.orderStatus?.background?.setTint(Color.parseColor("#4BFF5D"))
+                    this?.btnReceived?.visibility = View.VISIBLE
+                }
             }
         }
     }
 
     private fun setPreviousBuyItemRecyclerView() {
         val buyAgainFood = ArrayList<FoodModel>()
-        for (i in 1 until listOfOrderItem.size){
+        for (i in 0 until listOfOrderItem.size){
             val foodName = listOfOrderItem[i].foodNames?.firstOrNull()
             val foodPrice = listOfOrderItem[i].foodPrices?.firstOrNull()
             val foodImage = listOfOrderItem[i].foodImages?.firstOrNull()

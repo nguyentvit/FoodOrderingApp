@@ -21,6 +21,10 @@ class OrderDetails():Parcelable {
     constructor(parcel: Parcel) : this() {
         userUid = parcel.readString()
         userName = parcel.readString()
+        foodNames = parcel.createStringArrayList()
+        foodImages = parcel.createStringArrayList()
+        foodPrices = parcel.createStringArrayList()
+        foodQuantities = parcel.createStringArrayList()
         address = parcel.readString()
         totalPrice = parcel.readString()
         phoneNumber = parcel.readString()
@@ -62,6 +66,10 @@ class OrderDetails():Parcelable {
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userUid)
         parcel.writeString(userName)
+        parcel.writeStringList(foodNames)
+        parcel.writeStringList(foodImages)
+        parcel.writeStringList(foodPrices)
+        parcel.writeStringList(foodQuantities)
         parcel.writeString(address)
         parcel.writeString(totalPrice)
         parcel.writeString(phoneNumber)

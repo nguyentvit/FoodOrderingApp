@@ -12,9 +12,9 @@
         android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Anna"
+        android:text="@string/hello_anna"
         android:layout_marginTop="@dimen/authentication_screen_til_marginTopBottom"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:fontFamily="@font/pacifico_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
                 android:fontFamily="@font/pacifico_regular"
-                android:text="Chocolate Pancakes"
+                android:text="@string/chocolate_pancakes"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvNameRest"
                 app:layout_constraintStart_toEndOf="@+id/imageFood"
@@ -73,7 +73,7 @@
                 android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/langar_regular"
-                android:text="Tiem Nha Na"
+                android:text="@string/tiem_nha_na"
                 android:textColor="@color/text_hint_color"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageFood"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
                 android:fontFamily="@font/pacifico_regular"
-                android:text="$7"
+                android:text="@string/_7"
                 android:textColor="@color/colorAccent"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageFood"
@@ -93,14 +93,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvNameRest" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/orderStatus"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="32dp"
-                app:cardBackgroundColor="#4BFF5D"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="#A59E9F"
                 app:cardCornerRadius="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnReceived"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReceived"
+                android:layout_width="80dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_button_buy_again"
+                android:fontFamily="@font/poppins_semibold"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Received"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textAllCaps="false"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/orderStatus"
+                app:layout_constraintStart_toStartOf="@+id/orderStatus"
+                app:layout_constraintTop_toBottomOf="@+id/orderStatus" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
