@@ -12,8 +12,8 @@ import com.midterm.foododeringapp.databinding.BuyAgainItemBinding
 import com.midterm.foododeringapp.setGradientTextColor
 
 class BuyAgainAdapter(private val buyAgainFoodItems:ArrayList<FoodModel>,
-    private val requiredContext: Context
-    ):RecyclerView.Adapter<BuyAgainAdapter.HistoryViewHolder>() {
+                      private val requiredContext: Context
+):RecyclerView.Adapter<BuyAgainAdapter.HistoryViewHolder>() {
     class HistoryViewHolder(private var binding: BuyAgainItemBinding): RecyclerView.ViewHolder(binding.root) {
         val tvNameFood = binding.tvNameFood
         val tvNameRest = binding.tvNameRest

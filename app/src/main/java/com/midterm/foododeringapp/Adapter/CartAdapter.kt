@@ -133,6 +133,7 @@ class CartAdapter(private var items: ArrayList<CartItem>,
     }
 
     private fun removeItem(position: Int, uniqueKey: String) {
+
             if (uniqueKey!= null){
                 cartItemsReference.child(uniqueKey).removeValue().addOnSuccessListener {
                     items.removeAt(position)
