@@ -71,18 +71,28 @@ class ProfileFragment : Fragment() {
         val userId = auth.currentUser?.uid
         if (userId != null){
             val userReference = database.getReference("user").child(userId)
-            val userData = hashMapOf(
+            val userData = mapOf(
                 "name" to name,
                 "address" to address,
                 "email" to email,
                 "phone" to phone,
                 "password" to password
             )
-            userReference.setValue(userData).addOnSuccessListener {
-                Toast.makeText(requireContext(), "Profile update successfully", Toast.LENGTH_SHORT).show()
-            }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Profile update failed", Toast.LENGTH_SHORT).show()
+            auth.currentUser?.updatePassword(password)
+                ?.addOnCompleteListener { passwordUpdateTask ->
+                    if (passwordUpdateTask.isSuccessful) {
+                        // Nếu cập nhật mật khẩu thành công, tiến hành cập nhật dữ liệu người dùng
+                        userReference.updateChildren(userData)
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), "Profile update successfully", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(requireContext(), "Profile update failed", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        // Xử lý khi cập nhật mật khẩu thất bại
+                        Toast.makeText(requireContext(), "Failed to update password: ${passwordUpdateTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
         }
     }

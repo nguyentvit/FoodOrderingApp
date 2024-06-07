@@ -25,11 +25,11 @@ class CartAdapter(private var items: ArrayList<CartItem>,
                   private val requiredContext: Context,
                   private val cartTotalListener: CartTotalListener
 ): RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
-    // Initialize Firebase
-    private var auth = FirebaseAuth.getInstance()
+        // Initialize Firebase
+        private var auth = FirebaseAuth.getInstance()
     class CartViewHolder(private val binding: FoodInCartItemBinding): RecyclerView.ViewHolder(binding.root) {
         val tvNameFood = binding.tvNameFood
-        //        val tvNameRest = binding.tvNameRest
+//        val tvNameRest = binding.tvNameRest
         val tvPrice = binding.tvPrice
         val image = binding.imageFood
         val btnPlus = binding.btnPlus
@@ -133,17 +133,18 @@ class CartAdapter(private var items: ArrayList<CartItem>,
     }
 
     private fun removeItem(position: Int, uniqueKey: String) {
-        if (uniqueKey!= null){
-            cartItemsReference.child(uniqueKey).removeValue().addOnSuccessListener {
-                items.removeAt(position)
-                itemQuantities = itemQuantities.filterIndexed { index, i -> index != position  }.toIntArray()
-                updateTotalAmount()
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position,items.size)
-            }.addOnFailureListener {
-                Toast.makeText(requiredContext,"Failed to delete",Toast.LENGTH_SHORT).show()
+
+            if (uniqueKey!= null){
+                cartItemsReference.child(uniqueKey).removeValue().addOnSuccessListener {
+                    items.removeAt(position)
+                    itemQuantities = itemQuantities.filterIndexed { index, i -> index != position  }.toIntArray()
+                    updateTotalAmount()
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position,items.size)
+                }.addOnFailureListener {
+                    Toast.makeText(requiredContext,"Failed to delete",Toast.LENGTH_SHORT).show()
+                }
             }
-        }
     }
 
     private fun getUniqueKeyAtPosition(positionRetrieve: Int, onComplete: (String?) -> Unit) {
